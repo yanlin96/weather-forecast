@@ -1,15 +1,24 @@
 import { Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+
+const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
 function WeatherForecast(props) {
   return (
-    <Grid item xs={4}>
-      <p>{props.date}</p>
+    <Grid item xs={4} sm={4} md={1}>
+      <p>{days[new Date(props.date).getDay()]}</p>
 
       <img src={props.icon} alt="icon" />
 
       <p>
-        {Math.trunc(props.max)} ºc {Math.trunc(props.min)} ºc
+        {props.max} {props.min}
       </p>
     </Grid>
   );
