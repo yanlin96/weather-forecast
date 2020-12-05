@@ -10,5 +10,12 @@
     #207cca 56%,
     #7db9e8 100%
   );
-  min-width: 500px;
+  width: 700px;
+  height: 1000px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

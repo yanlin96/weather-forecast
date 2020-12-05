@@ -20,7 +20,7 @@ test("The initial input is the default city name 'Melbourne'", () => {
 
 test("a11y input should have a city-input", () => {
   render(<WeatherInfo />);
-  const input = screen.getByLabelText("Search City");
+  const input = screen.getByLabelText("Please enter a city name");
   expect(input).toHaveAttribute("id", "city-input");
 });
 

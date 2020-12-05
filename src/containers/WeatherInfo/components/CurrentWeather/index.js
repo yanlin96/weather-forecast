@@ -34,7 +34,7 @@ const useStyle = makeStyles({
     marginTop: "20px",
   },
   tempFont: {
-    fontSize: "32px",
+    fontSize: "48px",
   },
 });
 
