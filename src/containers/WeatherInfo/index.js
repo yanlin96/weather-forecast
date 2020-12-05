@@ -13,16 +13,30 @@ const useStyle = makeStyles({
   search: {
     marginBottom: "20px",
   },
+  input: {
+    borderRadius: "10px",
+    height: "20px",
+    outline: "none",
+    border: "none",
+  },
   forecast: {
     marginTop: "30px",
   },
   searchButton: {
+    outline: "none",
+    border: "none",
     marginTop: "5px",
     fontSize: "18px",
     width: "200px",
-    color: "white",
-    backgroundColor: "rgb(31, 78, 105)",
+    // color: "white",
+    color: "#207cca",
+    backgroundColor: "white",
     borderRadius: "10px",
+    "&:hover": {
+      backgroundColor: "#207cca",
+      color: "white",
+      cursor: "pointer",
+    },
   },
 });
 
@@ -105,8 +119,10 @@ function WeatherInfo() {
     >
       <Grid item xs={12} className={classes.search}>
         <div>
-          <label htmlFor="city-input">Search City</label>
+          <label htmlFor="city-input">Search City </label>
           <input
+            className={classes.input}
+            data-testid="city-input"
             id="city-input"
             aria-describedby="city-helper-text"
             value={city}
@@ -121,6 +137,7 @@ function WeatherInfo() {
         </div>
         <div>
           <button
+            data-testid="city-search"
             className={classes.searchButton}
             onClick={() => {
               // error control for empty city to api
@@ -138,6 +155,7 @@ function WeatherInfo() {
         </div>
         <div>
           <button
+            data-testid="unit-switch"
             className={classes.searchButton}
             onClick={() => {
               if (unit === "m") {

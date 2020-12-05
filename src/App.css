@@ -2,9 +2,13 @@
   text-align: center;
   color: white;
   background-image: linear-gradient(
-    135deg,
-    rgb(31, 78, 105) 0px,
-    rgb(22, 64, 88) 100%
+    to bottom,
+    #3b679e 0%,
+    #2b88d9 40%,
+    #2b88d9 43%,
+    #207cca 49%,
+    #207cca 56%,
+    #7db9e8 100%
   );
   min-width: 500px;
 }

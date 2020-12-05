@@ -1,10 +1,10 @@
-import WeatherInfo from './containers/WeatherInfo'
-import './App.css'
+import WeatherInfo from "./containers/WeatherInfo";
+import "./App.css";
 
 function App() {
   return (
     <div role="main" className="App">
-      <h1>Weather Forcast</h1>
+      <h1 data-testid="greeting">Weather Forecast</h1>
       <WeatherInfo />
     </div>
   );
