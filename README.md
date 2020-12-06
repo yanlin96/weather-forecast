@@ -15,6 +15,9 @@ Living website is at: http://yanlin-weather-test.s3-website-ap-southeast-2.amazo
 To start the project locally
 
 ```js
+git clone https://github.com/yanlin96/weather-forecast.git
+cd weather-forecast;
+
 npm install;
 npm run start:
 ```
