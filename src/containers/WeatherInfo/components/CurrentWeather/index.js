@@ -1,5 +1,6 @@
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 
 const now = new Date();
 const days = [
@@ -77,4 +78,4 @@ function CurrentWeather(props) {
   );
 }
 
-export default CurrentWeather;
+export default React.memo(CurrentWeather);

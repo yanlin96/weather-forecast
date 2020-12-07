@@ -238,4 +238,4 @@ function WeatherInfo() {
   );
 }
 
-export default WeatherInfo;
+export default React.memo(WeatherInfo);

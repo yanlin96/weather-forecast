@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-
+import React from "react";
 const days = [
   "Sunday",
   "Monday",
@@ -24,4 +24,4 @@ function WeatherForecast(props) {
   );
 }
 
-export default WeatherForecast;
+export default React.memo(WeatherForecast);

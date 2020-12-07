@@ -1,6 +1,8 @@
 import { Grid } from "@material-ui/core";
+import React from "react";
 
 function WeatherStatus(props) {
+  console.log("rennnnnnnnnnnnnnnnder");
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -21,4 +23,4 @@ function WeatherStatus(props) {
   );
 }
 
-export default WeatherStatus;
+export default React.memo(WeatherStatus);
