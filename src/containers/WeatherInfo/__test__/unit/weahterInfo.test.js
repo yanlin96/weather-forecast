@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import WeatherInfo from "../../../WeatherInfo";
 
 import { getWeatherForcast as MockGetWeatherForcast } from "../../../../apis/weather";
+jest.mock("../../../../apis/weather");
 
 const setup = () => {
   const utils = render(<WeatherInfo />);
@@ -53,10 +54,10 @@ test("Search city button for the click event", () => {
   expect(button.textContent).toBe("Switch to ºc");
 });
 
-test("function called test", () => {
-  jest.mock("../../../../apis/weather");
-  const { searchButton } = setup();
-  MockGetWeatherForcast.mockResolvedValueOnce({});
+test("function called test", async () => {
+  const { input, searchButton } = setup();
+  expect(MockGetWeatherForcast).toHaveBeenCalledTimes(1);
+  fireEvent.change(input, { target: { value: "Sydney" } });
   fireEvent.click(searchButton);
-  expect(MockGetWeatherForcast).toHaveBeenCalled(1);
+  expect(MockGetWeatherForcast).toHaveBeenCalledTimes(2);
 });

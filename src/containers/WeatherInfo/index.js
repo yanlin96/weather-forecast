@@ -66,26 +66,28 @@ function WeatherInfo() {
   const editButtonRef = useRef(null);
 
   const fetchData = useCallback(async (city, unit) => {
-    console.log("called");
-    const data = await getWeatherForcast(city, unit);
-    console.log(data);
-    if (data.success === false) {
-      setErr(true);
-      setLoading();
-      return;
+    console.log("madan");
+    try {
+      const data = await getWeatherForcast(city, unit);
+      if (data.success === false) {
+        setErr(true);
+        setLoading();
+        return;
+      }
+      setErr(false);
+      const { current, forecast } = data;
+      setCurrentWeather(current);
+      setForecast(forecast);
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
     }
-    setErr(false);
-    const { current, forecast } = data;
-    setCurrentWeather(current);
-    setForecast(forecast);
-    setLoading(false);
   }, []);
 
   // Call api and fetch data
   useEffect(() => {
-    fetchData(city, unit);
-    // eslint-disable-next-line
-  }, [unit]);
+    fetchData("Melbourne", "m");
+  }, [fetchData]);
 
   // change input value
   const handleChange = (e) => {
