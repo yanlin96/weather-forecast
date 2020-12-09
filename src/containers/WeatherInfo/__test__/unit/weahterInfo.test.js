@@ -2,16 +2,27 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import WeatherInfo from "../../../WeatherInfo";
 
+import { getWeatherForcast as MockGetWeatherForcast } from "../../../../apis/weather";
+
 const setup = () => {
   const utils = render(<WeatherInfo />);
   const input = utils.getByTestId("city-input");
+  const searchButton = utils.getByTestId("city-search");
   const button = utils.getByTestId("unit-switch");
   return {
     input,
     button,
+    searchButton,
     ...utils,
   };
 };
+
+function searchNewCityMock() {}
+
+// simulate real world api delay
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 test("The initial input is the default city name 'Melbourne'", () => {
   const { input } = setup();
@@ -34,4 +45,18 @@ test("Switch unit button for the click event", () => {
   const { button } = setup();
   fireEvent.click(button);
   expect(button.textContent).toBe("Switch to ºc");
+});
+
+test("Search city button for the click event", () => {
+  const { button } = setup();
+  fireEvent.click(button);
+  expect(button.textContent).toBe("Switch to ºc");
+});
+
+test("function called test", () => {
+  jest.mock("../../../../apis/weather");
+  const { searchButton } = setup();
+  MockGetWeatherForcast.mockResolvedValueOnce({});
+  fireEvent.click(searchButton);
+  expect(MockGetWeatherForcast).toHaveBeenCalled(1);
 });

@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useRef, Fragment } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+  Fragment,
+} from "react";
 import { Grid } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
@@ -56,60 +62,35 @@ function WeatherInfo() {
   const [err, setErr] = useState(false);
 
   // For accessibility consideration
-  const [isEditing, setEditing] = useState(false);
   const editFieldRef = useRef(null);
   const editButtonRef = useRef(null);
 
+  const fetchData = useCallback(async (city, unit) => {
+    console.log("called");
+    const data = await getWeatherForcast(city, unit);
+    console.log(data);
+    if (data.success === false) {
+      setErr(true);
+      setLoading();
+      return;
+    }
+    setErr(false);
+    const { current, forecast } = data;
+    setCurrentWeather(current);
+    setForecast(forecast);
+    setLoading(false);
+  }, []);
+
   // Call api and fetch data
   useEffect(() => {
-    // For accessibility consideration:
-    editFieldRef.current.focus();
-
-    // Set Default city as Melbourne
-    getWeatherForcast(city, unit)
-      .then(({ data }) => {
-        if (data.success === false) {
-          setErr(true);
-          setLoading(false);
-          return;
-        }
-        setErr(false);
-        const { current, forecast } = data;
-        setCurrentWeather(current);
-        setForecast(forecast);
-        setLoading(false);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    fetchData(city, unit);
     // eslint-disable-next-line
-  }, [unit, isEditing]);
+  }, [unit]);
 
   // change input value
   const handleChange = (e) => {
     e.preventDefault();
     setCity(e.target.value);
-  };
-
-  // search a new city weather info
-  const searchNewCity = () => {
-    setLoading(true);
-    getWeatherForcast(city, unit)
-      .then(({ data }) => {
-        if (data.success === false) {
-          setErr(true);
-          setLoading(false);
-          return;
-        }
-        setErr(false);
-        const { current, forecast } = data;
-        setCurrentWeather(current);
-        setForecast(forecast);
-        setLoading(false);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   };
 
   // Unit swith
@@ -142,7 +123,8 @@ function WeatherInfo() {
           />
           <span id="city-helper-text">(city name）</span>
         </div>
-        <div style={{ color: "red" }}>
+        {/* role="alert" is also for accessibility */}
+        <div style={{ color: "red" }} role="alert">
           {" "}
           {err ? <span>Please enter a valid city name</span> : null}{" "}
         </div>
@@ -155,9 +137,8 @@ function WeatherInfo() {
               if (city !== "") {
                 setDefaultCity(city);
               }
-              setEditing(true);
               editFieldRef.current.focus();
-              searchNewCity();
+              fetchData(city, unit);
             }}
             ref={editButtonRef}
           >
@@ -229,6 +210,7 @@ function WeatherInfo() {
             } else {
               setUnit("m");
             }
+            editFieldRef.current.focus();
           }}
         >
           {unit === "m" ? "Switch to ºF" : "Switch to ºc"}
